@@ -1,0 +1,128 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Book Genre</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/navigation/">
+
+    <!-- Bootstrap core CSS -->
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+      <meta name="generator" content="Jekyll v4.1.1">
+      <title>Book Genre</title>
+  
+      <link rel="canonical" href="https://getbootstrap.com/navigation/">
+  
+      <!-- Bootstrap core CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  
+      <!-- Custom styles for this template -->
+      <link href="/css/navigation.css" rel="stylesheet">
+    </head>
+    
+    <!-- Custom styles for this template -->
+  </head>
+
+<body style="background-repeat: no-repeat; background-size: 70% 100%;
+;background-image: url(https://img.jakpost.net/c/2016/08/18/2016_08_18_10003_1471514391._large.jpg)">
+ <div style="padding-left:70%;">
+  <%  if ( alert=="alert" ) { %>  
+
+  <div class="alert alert-warning" role="alert">
+  <div style="padding-left: 80px;">
+    <%= message %>
+  </div>
+  </div>
+
+  <% }  %> 
+
+<div  style="width:600px;; background-color: white;height: 100%;">
+      <h1 class="text-center mb-3">
+        <div style="padding-top: 150px;padding-right: 150px;">
+          <h2 style="font-size: 30px;color: black;">FILL YOUR DETAILS</h2>
+
+        
+        </div>
+  
+      </h1>
+
+      <form action="/register" method="POST" class="validate">
+     
+
+        <div class="form-group"  style="padding-top: 5px; padding-bottom: 15px;padding-left: 68px;">
+          <input
+            type="name"
+            id="name"
+            name="name"
+            class="form-control"
+            style="text-align:center;border-radius: 15px; border:2px solid #D0D0D0 ;background-color:white;height: 50px;width:350px	" 
+
+            placeholder="Enter Name"
+            value="<%= typeof name != 'undefined' ? name : '' %>"
+            required
+          />
+        </div>
+        
+        <div class="form-group"  style="padding-top: 5px; padding-bottom: 15px;padding-left: 68px;">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            style="text-align:center;border-radius: 15px; border:2px solid #D0D0D0 ;background-color:white;height: 50px;width:350px	" 
+
+            class="form-control"
+            placeholder="Enter Email"
+            value="<%= typeof email != 'undefined' ? email : '' %>"
+            required
+          />
+        </div>
+       
+        <div class="form-group"  style="padding-top: 5px; padding-bottom: 15px;padding-left: 68px;">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            style="text-align:center;border-radius: 15px; border:2px solid #D0D0D0 ;background-color:white;height: 50px;width:350px	" 
+
+            class="form-control"
+            placeholder="Create Password"
+            value="<%= typeof password != 'undefined' ? password : '' %>"
+            required
+          />
+        </div>
+         
+        <div class="form-group"  style="padding-top: 5px; padding-bottom: 15px;padding-left: 68px;">
+          <input
+            type="password"
+            id="password2"
+            name="password2"
+            style="text-align:center;border-radius: 15px; border:2px solid #D0D0D0 ;background-color:white;height: 50px;width:350px	" 
+
+            class="form-control"
+            placeholder="Confirm Password"
+            value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+            required
+          />
+        </div>
+        <div style="padding-left: 68px;padding-top: 20px;">
+
+          <button style="height:40px;color:white;border-radius:30px;border:1px solid  #F4A460 ;width: 350px; background-color: #F4A460;"> 
+Register          </button>
+        </div>
+      </form>
+      <p style="color: #ec5f5f; padding-left: 150px;"class="lead mt-4">Have An Account? <a style="color: #F4A460;" href="/">Login</a></p>
+    </div>
+  </div>
+
+    
+  </body>
+
+
+  </html>

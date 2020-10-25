@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Book Genre</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/navigation/">
+
+    <!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="/css/navigation.css" rel="stylesheet">
+  </head>
+<body>
+  <%- include('partials/nav.ejs') %>
+
+
+<h1 class="card-title" style="padding-left: 500px;" ><i>Groups Created By You</i> <small class="text-muted"></small></h1>
+
+
+<div class="container" style="padding-top: 80px;">
+
+    <div class="card-deck mb-3 text-center">
+      <% var c = 0 %>
+        <% items.forEach(function(image) { %>
+
+            <%  if ( image.createdby == email ) { %>  
+         
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+  
+                <div class="card-body" >
+                    <h1 class="card-title"><i><%= image.gname %></i> <small class="text-muted"></small></h1>
+
+          
+                    <img src="data:image/<%=image.img.contentType%>;base64, 
+                     <%=image.img.data.toString('base64')%>" class="rounded" width="70" height="70">
+                     <ul class="list-unstyled mt-3 mb-4">
+                        <li class="text-secondary"><%= image.count %> members & still counting</li>
+                        <p><%=  image.desc %></p>
+                      </ul>
+                      <button type="button" class="btn btn-lg btn-block btn-outline-warning">View</button>
+  
+                
+            </div> 
+        </div> 
+        </div>
+        <% }  %> 
+
+  
+        <% }) %> 
+    </div> 
+    </div>
+
+
+        <% if(mygroups.length ==0 ){ %>
+          <h1 class="card-title" style="padding-left: 500px;" ><i>PLease join Groups to view this</i> <small class="text-muted"></small></h1>
+
+          <% } else { %>
+            
+  <h1 class="card-title" style="padding-left: 500px;" ><i>Your Groups</i> <small class="text-muted"></small></h1>
+  <div class="container" style="padding-top: 80px;">
+
+    <div class="card-deck mb-3 text-center">
+
+      <% for(var i=0; i < mygroups.length; i++) { %>
+        <% items.forEach(function(image) { %>
+
+          <%  if ( image._id == mygroups[i] ) { %>  
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+        
+                      <div class="card-body" >
+                          <h1 class="card-title"><i><%= image.name %></i> <small class="text-muted"></small></h1>
+      
+                
+                          <img src="data:image/<%=image.img.contentType%>;base64, 
+                           <%=image.img.data.toString('base64')%>" class="rounded" width="70" height="70">
+                           <ul class="list-unstyled mt-3 mb-4">
+                              <li class="text-secondary"><%= image.count %> members & still counting</li>
+                              <p><%=  image.desc %></p>
+                            </ul>
+                            <button type="button" class="btn btn-lg btn-block btn-outline-warning">View</button>
+        
+                      
+                  </div> 
+              </div> 
+              </div>
+              <% }  %> 
+      
+        
+              <% }) %> 
+
+
+     <% } %>
+     <% } %>
+    </div>
+    </div>
+</body>
+</html>

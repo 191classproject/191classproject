@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Myaccount · Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/Myaccount/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/form-validation.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    <%- include('partials/nav.ejs') %>
+    <%  if ( alert=="alert" ) { %>  
+
+      <div class="alert alert-warning" role="alert">
+        <div style="
+        padding-left: 500px;">
+        <%= msg %>
+            </div>
+      </div>
+    
+      <% }  %> 
+      <%  if ( alert=="sucessalert" ) { %>  
+
+        <div class="alert alert-success" role="alert">
+        <div style="
+          padding-left: 500px;">
+          <%= msg %>
+              </div>
+        </div>
+      
+        <% }  %> 
+
+    <div class="container" style="padding-top: 50px;padding-left: 250px;">
+  <div class="py-2 text-center">
+     
+  </div>
+    <div class="col-md-8 order-md-1">
+      <form  class="validate" action="/edit_username"   method="POST" autocomplete="off" >   
+  
+
+
+
+
+
+        <div class="mb-3">
+          <label for="password">New Username</label>
+          <%  if ( loginmode == "email" ) { %>  
+
+          <input  name="username" class="form-control" id="username" value= <%= name %>  required>
+          <% }  %> 
+          <%  if ( loginmode == "google" ) { %>  
+            <h4>********</h4>
+
+         
+            <% }  %> 
+  
+
+        </div>
+        
+
+
+        <div class="mb-3">
+          <label for="email">Email <span class="text-muted"></span></label>
+          
+          <h4><%= email %></h4>
+          
+          
+        </div>
+
+       
+
+
+
+        <div class="mb-3">
+          
+          <label for="password">Password</label>
+          <%  if ( loginmode == "email" ) { %>  
+          <input type="password" name="password" class="form-control" id="password" placeholder="********" required>
+          <% }  %> 
+          <%  if ( loginmode == "google" ) { %>  
+            <h4>********</h4>
+
+         
+            <% }  %> 
+  
+        </div>
+        <div class="mb-3">
+
+          <label for="password">Confirm Password</label>
+          <%  if ( loginmode == "email" ) { %>  
+          <input type="password" name="change" class="form-control" id="change" placeholder="********" required>
+      
+          <% }  %> 
+          <%  if ( loginmode == "google" ) { %>  
+            <h4>********</h4>
+
+         
+            <% }  %> 
+  
+      
+        </div>
+
+        
+        <hr class="mb-4">
+        <%  if ( loginmode == "email" ) { %>  
+        <button class="btn btn-outline-warning btn-lg btn-block" type="submit">Update</button>
+        <% }  %> 
+
+      </form>
+    </div>
+  </div>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2014-2020 Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+
+    <link rel="canonical" href="https://getbootstrap.com/Myaccount/">
+
+    <!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+	<%- include('partials/nav.ejs') %>
+
+  
+	<div class="container-fluid" style="padding-top: 40px;">
+		<section class="row justify-content-center">
+			<section class="col-12 col-md-4">
+				<form class="form-container">
+				<div class="py-2 text-center">
+     
+				</div>
+			    <div class="profile-sidebar">
+				
+				<div class="profile-userpic">
+					<img src="https://static.change.org/profile-img/default-user-profile.svg" class="center" alt="">
+				</div>
+				
+				<div class="profile-usertitle">
+					<h3 class="display-8 text-muted">Hello <%= name %></h3>
+   
+					<a href="#">
+					<button type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+						<%= email %></a>
+					
+				</div>
+				
+				
+				
+				<div class="profile-usermenu shadow-sm">
+					<ul class="nav">
+					 <div class="col-md-6 mb-3">
+					 <li>
+						<a href="/view_p_create">
+						<i class="glyphicon glyphicon-home"></i>
+						Overview </a>
+					 </li>
+					 </div>
+					</ul>
+				</div>
+				<div class="profile-usermenu shadow-sm">
+				    <ul class="nav">
+					 <div class="col-md-6 mb-3">
+					    <li>
+							<a href="/edit_profile">
+							<i class="glyphicon glyphicon-user"></i>
+							Update Password </a>
+						</li>
+					 </div>
+					</ul>	
+						
+				</div>
+				<div class="profile-usermenu shadow-sm">
+					<ul class="nav">
+					 <div class="col-md-6 mb-3">
+					 <li>
+						<a href="/edit_username">
+						<i class="glyphicon glyphicon-ok"></i>
+						Update Username </a>
+					 </li>
+					 </div>
+					</ul>
+				</div>
+				
+			</div>
+		  </form>
+		</section>
+	</section>
+</section>
+ <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2014-2020</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+<center>
+<strong>Powered by <a href="" target="_blank"></a></strong>
+</center>
+<br>
+<br>
+</body>
+</html>

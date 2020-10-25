@@ -1,0 +1,111 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  
+<head> 
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Jekyll v4.1.1">
+        <title>Book Genre</title>
+    
+        <link rel="canonical" href="https://getbootstrap.com/navigation/">
+    
+        <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    
+        <style>
+          .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+          }
+    
+          @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+              font-size: 3.5rem;
+            }
+          }
+        </style>
+        <!-- Custom styles for this template -->
+        <link href="/css/navigation.css" rel="stylesheet">
+        <link href="/css/form-validation.css" rel="stylesheet">
+      </head>
+ 
+   <body class="bg-light">   
+    <%- include('partials/nav.ejs') %>
+
+
+      <div class="container">
+      <div class="py-5 text-center">
+      </div>
+        <div class="col-md-8 order-md-2">
+          <form class="needs-validation" novalidate  action="/create_group" method="POST" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <h1 class="mb-3">Create Group</h1>
+                <label for="Booktitle"><i>Group Title</i></label>
+                
+                  <input class="form-control" type="text" id="gname" placeholder="Name" 
+                           value="" name="gname" required/> 
+                <div class="invalid-feedback">
+                  Valid Book Title is required.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="Booktitle"><i>Book Title</i></label>
+                
+                  <input class="form-control" type="text" id="bname" placeholder="Name" 
+                           value="" name="bname" required/> 
+                <div class="invalid-feedback">
+                  Valid Book Title is required.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="Booktitle"><i>Maximum Numbers</i></label>
+                
+                  <input class="form-control" type="text" id="maximumnum" placeholder="Name" 
+                           value="" name="maximumnum" required/> 
+                <div class="invalid-feedback">
+                  Valid Book Title is required.
+                </div>
+              </div>
+            </div>
+    
+            <div class="mb-3">
+              <label for="Bookdescription"><i>Book Description</i></label>
+               <textarea class="form-control" id="dis" name="dis" rows="4" cols="50"></textarea>
+    
+              <div class="invalid-feedback">
+                  Valid Book Description is required.
+              </div>
+        </div>
+            <div class="row">
+              <div class="col-md-5 mb-3">
+                <label for="uploadbookcover"><i>Upload Book Cover</i></label>
+                <div class="file-upload-wrapper">
+                <input type="file" id="image" 
+                           name="image" value="" required/> 
+                </div>
+              </div>
+        </div>
+            <hr class="mb-4">
+            <button class="btn btn-outline-warning btn-lg btn-block" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    
+ 
+</body> 
+  
+
+</html> 
+

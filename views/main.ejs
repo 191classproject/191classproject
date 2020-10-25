@@ -1,0 +1,48 @@
+<body style="background-repeat: no-repeat; background-size: 70% 100%;
+;background-image: url(https://i.pinimg.com/originals/c3/5b/91/c35b916af1f52a2a8aeab3b83f85c1c1.jpg)">
+ <div style="padding-left:70%;">
+
+ 
+ 
+ <div>
+  <div>
+    <div style="padding-top: 180px; padding-left:80px;">
+      <h2 style="font-size: 40px;color: black;">Login  To Continue</h2>
+
+    </div>
+      <form action="/login" method="POST">
+
+        <div class="form-group"  style="padding-top: 5px; padding-bottom: 15px;padding-left: 68px;">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter Email"
+            style="text-align:center;border-radius: 15px; border:2px solid #D0D0D0 ;background-color:white;height: 50px;width:350px	" 
+            value="<%= typeof email != 'undefined' ? email : '' %>"
+          />
+        </div>
+       
+        <div class="form-group"  style="padding-top: 5px; padding-bottom: 15px;padding-left: 68px;">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            style="text-align:center;border-radius: 15px; border:2px solid #D0D0D0 ;background-color:white;height: 50px;width:350px	" 
+
+            placeholder="Enter Password"
+            value="<%= typeof password != 'undefined' ? password : '' %>"
+          />
+        </div>
+       
+        <div style="padding-left: 68px;padding-top: 20px;">
+
+          <button style="height:40px;color:white;border-radius:30px;border:1px solid  #F4A460 ;width: 350px; background-color: #F4A460;"> 
+            SIGN IN
+          </button>
+        
+      </form>
+    </div>
+</div>
+
+</body>

@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Book Genre</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/navigation/">
+
+    <!-- Bootstrap core CSS -->
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+      <meta name="generator" content="Jekyll v4.1.1">
+      <title>Book Genre</title>
+  
+      <link rel="canonical" href="https://getbootstrap.com/navigation/">
+  
+      <!-- Bootstrap core CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  
+      <!-- Custom styles for this template -->
+      <link href="/css/navigation.css" rel="stylesheet">
+    </head>
+
+
+<body style="background-repeat: no-repeat; background-size: 70% 100%;
+;background-image: url(https://i.pinimg.com/originals/c3/5b/91/c35b916af1f52a2a8aeab3b83f85c1c1.jpg)">
+ <div style="padding-left:70%;">
+  
+  <%  if ( alert=="alert" ) { %>  
+
+    <div class="alert alert-warning" role="alert">
+      <div >
+      <%= msg %>
+    </div>
+    </div>
+  
+    <% }  %> 
+    <%  if ( alert=="sucessalert" ) { %>  
+
+      <div class="alert alert-success" role="alert">
+      <div >
+        <%= msg %>
+            </div>
+      </div>
+    
+      <% }  %> 
+ 
+ 
+ <div>
+  <div>
+    <div style="padding-top: 180px; padding-left:80px;">
+      <h2 style="font-size: 40px;color: black;">Login  To Continue</h2>
+
+    </div>
+      <form  class="validate" action="/login" method="POST">
+
+        <div class="form-group"  style="padding-top: 5px; padding-bottom: 15px;padding-left: 68px;">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter Email"
+            style="text-align:center;border-radius: 15px; border:2px solid #D0D0D0 ;background-color:white;height: 50px;width:350px	" 
+            value="<%= typeof email != 'undefined' ? email : '' %>"
+            required
+          />
+        </div>
+       
+        <div class="form-group"  style="padding-top: 5px; padding-bottom: 15px;padding-left: 68px;">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            style="text-align:center;border-radius: 15px; border:2px solid #D0D0D0 ;background-color:white;height: 50px;width:350px	" 
+
+            placeholder="Enter Password"
+            value="<%= typeof password != 'undefined' ? password : '' %>"
+            required
+          />
+        </div>
+       
+        <div style="padding-left: 68px;padding-top: 20px;">
+
+          <button style="height:40px;color:white;border-radius:30px;border:1px solid  #F4A460 ;width: 350px; background-color: #F4A460;"> 
+            SIGN IN
+          </button>
+        
+      </form>
+    </div>
+  <p style="padding-left: 68px ;padding-top: 20px;"> 
+    NEW HERE? <a style="color: F4A460" href="/register">CLICK HERE TO REGISTER</a>
+  </p>
+  <p style="padding-left: 68px ;padding-top: 20px;"> 
+    Use GOOGLE?! <a style="color: F4A460" href=<%= name %>>CLICK HERE TO Login</a>
+  </p>
+
+</div>
+
+</body>
+</html>
