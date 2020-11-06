@@ -60,7 +60,7 @@ app.use(session({
 
 const stringifiedParams = queryString.stringify({
   client_id: "82196192223-m9ceu30331dm4uetb1a1luhugmjpmop7.apps.googleusercontent.com",
-  redirect_uri: 'http://127.0.0.1:4000/home',
+  redirect_uri: 'http://ec2-13-127-209-208.ap-south-1.compute.amazonaws.com:4000/home',
   scope: [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
@@ -283,7 +283,7 @@ else{
           data: {
             client_id:"82196192223-m9ceu30331dm4uetb1a1luhugmjpmop7.apps.googleusercontent.com",
             client_secret: "u-5hXIZaDL0lWcR0_G9y9dSU",
-            redirect_uri: 'http://127.0.0.1:4000/home',
+            redirect_uri: 'http://ec2-13-127-209-208.ap-south-1.compute.amazonaws.com:4000/home',
             grant_type: 'authorization_code',
             code:code,
           },
@@ -352,6 +352,7 @@ else{
                 }
                 else
                 {
+                  
                   
     
                   res.render('home', { items: items,name:req.session.name,mygroups:foundResults.groups,email:req.session.email}); 
@@ -940,9 +941,7 @@ if (foundResults)
 
       app.get('/Requests', (req, res) =>{
 
-        console.log(
-          "hie"
-        );
+        
         User.findOne({email:req.session.email},
           (err,foundResults)=>{
   
@@ -975,14 +974,19 @@ if (foundResults)
 app.post('/accept', (req, res) =>{
   email=req.body.email;
   groupid=req.body.groupid;
-  console.log("hie");
 
-  User.findOne({email:email},
+  Groups.findOne({_id:groupid},
     (err,foundResults)=>{
-      if(foundResults.users.includes(email)==true)
+
+
+
+
+        if (foundResults.users.includes(req.session.email)==true)
       {
-        console.log("True");
+        console.log("accept clicked")
+
       }
+    
       else{
         User.updateOne(
 
@@ -995,7 +999,7 @@ app.post('/accept', (req, res) =>{
             } 
           }
         );
-        User.updateOne( {email:email}, { $pullAll: {requests: [groupid] } },
+        User.updateOne( {email:req.session.email}, { $pullAll: {requests: [groupid] } },
           (err,results)=>
           {
             if(err)
@@ -1005,26 +1009,27 @@ app.post('/accept', (req, res) =>{
           }
            );
         
+           console.log("hie")
       }
 
     }
   );
+
   User.findOne({email:req.session.email},
     (err,foundResults)=>{
 
-        if(err){
-            console.log(err);
-        }
-        else
-        {
-          Groups.findOne({_id:groupid}, function(err, dba) {
+        
+       
+      
+
+          User.findOne({email:req.session.email}, function(err, dba) {
 
             if (dba.groups.includes(groupid))
             {
             }
             else
             {
-            
+            console.log("found")
           Groups.updateOne(
             {_id:groupid},
             {$push:{users:email},},
@@ -1036,7 +1041,30 @@ app.post('/accept', (req, res) =>{
                
              }
              else{
-               console.log("Succes")
+              console.log("foundasas")
+
+              Groups.find({}, (err, items) => { 
+                if (err) { 
+                    console.log(err); 
+                } 
+                else { 
+                  User.findOne({email:req.session.email},
+                    (err,foundResults)=>{
+            
+                        if(err){
+                            console.log(err);
+                        }
+                        else
+                        {
+
+                          console.log("true")
+            
+                          res.render('home', { items: items,name:req.session.name,mygroups:dba.groups,email:req.session.email}); 
+            
+                    }
+                    }) ; 
+                } 
+            }); 
              }
 
             }
@@ -1044,17 +1072,9 @@ app.post('/accept', (req, res) =>{
           );
             }});
           
-          Groups.find({}, (err, items) => { 
-            if (err) { 
-                console.log(err); 
-            } 
-            else { 
-              res.render("Requests",{items:items,reqarray:foundResults.requests,email:req.session.email,ctype:items.img.contentType,imgsrc:items.img.data})
-        
-            } 
-        });   
+          
 
-    }
+    
     }) ;
 
               
@@ -1093,10 +1113,21 @@ app.post('/accept', (req, res) =>{
                                 console.log(err); 
                             } 
                             else { 
-                              res.render("Requests",{items:items,reqarray:foundResults.requests,email:req.session.email,ctype:items.img.contentType,imgsrc:items.img.data})
+                              User.findOne({email:req.session.email},
+                                (err,foundResults)=>{
                         
+                                    if(err){
+                                        console.log(err);
+                                    }
+                                    else
+                                    {
+                        
+                                      res.render('home', { items: items,name:req.session.name,mygroups:foundResults.groups,email:req.session.email}); 
+                        
+                                }
+                                }) ; 
                             } 
-                        });   
+                        }); 
             
                     }
                     }) ;
