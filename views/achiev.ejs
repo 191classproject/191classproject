@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    .my-btn-group {
+      width: 200px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Jekyll v4.1.1">
+  <title>Book Genre</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/navigation/">
+
+  <!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <!-- Custom styles for this template -->
+  <link href="/css/navigation.css" rel="stylesheet">
+</head>
+
+<body>
+    <%- include('partials/nav.ejs') %>
+
+
+  <div class="container-lg mb-5 ">
+    <% targetarray.forEach(function(image) { %>
+
+    <div class="row mt-5">
+      <div class="col-md-4 text-center">
+        <img src="data:image/<%=image.img.contentType%>;base64, 
+                <%=image.img.data.toString('base64')%>" height="200" weight="200">
+      </div>
+      <div class="col-md-4">
+        <h1 class="text-left"><%=image.gname %></h1>
+        <h2 class="text-left"><%=image.bname %></h2>
+
+      </div>
+      <div class="col-md-4">
+        
+      </div>
+     
+      
+
+    </div>
+
+
+        <% for(var i=0; i < image.targetinfo.length; i++) { %>
+          <form   action="/targetform" method="POST" >
+
+        <div class="row mt-4">
+          <div class="col-md-6 border border-dark rounded clearfix mt-4">
+            <div class="row mt-2">
+              <div class="col-md-6">
+                  <h6 class="text-left" id="no_days_1">Pageno:<%= image.targetinfo[i].Pagedata %></h6>
+                  </div>
+                  <div class="col-md-6">
+
+                  <h6 class="text-center" id="no_days_1">Days:<%= image.targetinfo[i].days %></h6>
+
+              </div>
+              
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-left">Summary:</h6>
+              <p class="text-left" id="summary"><%=image.targetinfo[i].targetdata %></p>
+            </div>
+          </div>
+        </div>
+
+      
+        
+
+      </form>
+
+                              <% }  %> 
+                              <% }) %> 

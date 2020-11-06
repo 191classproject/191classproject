@@ -7,11 +7,34 @@ const connectionParams={
 mongoose.connect("mongodb+srv://191classproject:12345@cluster0.pxhyp.mongodb.net/Books?retryWrites=true&w=majority",connectionParams);const groupschema = new mongoose.Schema({
   gname: String, 
   bname: String,
-  maxinum:String,
+  max:String,
 
   desc: String, 
-  count: String,
   createdby:String,
+  pagenos:Number,
+  users:[{
+    type:String
+
+  }],
+  targetinfo:[
+    {
+      Pagedata: Number, 
+      date: {
+        type: Date,
+        default: Date.now
+      },
+      validatedata:String,
+      days:String,
+      
+      createdby:String,
+      targetdata:String
+      
+
+
+
+    }
+  ],
+
 
   
     img: 

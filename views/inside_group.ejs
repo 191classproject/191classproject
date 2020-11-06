@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    .my-btn-group {
+      width: 200px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Jekyll v4.1.1">
+  <title>Book Genre</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/navigation/">
+
+  <!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <!-- Custom styles for this template -->
+  <link href="/css/navigation.css" rel="stylesheet">
+</head>
+
+  <body>
+    <%- include('partials/nav.ejs') %>
+
+
+
+  <div class="container-lg mt-5 mb-5">
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <img src="data:image/<%=ctype%>;base64, 
+        <%=imgsrc.toString('base64')%>">
+      </div>
+      <div class="col-md-4">
+        <h1 class="text-left"><%= gname %></h1>
+        <h2 class="text-left"><%= bname %></h2>
+
+      </div>
+      <div class="col-md-4">
+        
+      </div>
+     
+      
+
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-6">
+
+        
+        <% for(var i=0; i < targetarray.length; i++) { %>
+          <form   action="/targetform" method="POST" >
+            <input type='hidden' id= 'id' name='id' value= <%= result %> />
+
+
+        <div class="col-md-12 border border-dark rounded clearfix mt-4">
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <h6 class="text-left" id="no_days_1">Pageno:<%= targetarray[i].Pagedata %></h6>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-right" id="date_1">Days:<%= targetarray[i].days %></h6>
+            </div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-md-6">
+              <h6 class="text-left">Summary:</h6>
+              <p class="text-left" id="summary"><%= targetarray[i].targetdata %></p>
+            </div>
+            <div class="col-md-6">
+              
+              <input type='hidden' id= 'objectid' name='objectid' value= <%= targetarray[i]._id %> />
+
+              <div>
+
+               <%  if ( targetarray[i].validatedata=="Submitted" ) { %>  
+                <input type='hidden' id= 'validateid' name='validateid' value= Submit />
+                <textarea class="form-control" id="targetinfo" name="targetinfo" rows="4" cols="50"></textarea>
+
+
+
+                <p class="text-right"><span><button class="btn btn-primary">Submit</button></span></p>
+                      <% } 
+                      else if( targetarray[i].validatedata=="Validated" ) { %>
+                        <input type='hidden' id= 'validateid' name='validateid' value= Validate />
+
+                        <p class="text-right"><span><button class="btn btn-primary">Validate</button></span></p>
+                        <% } 
+                        else{ %>
+                          <input type='hidden' id= 'validateid' name='validateid' value= Completed />
+
+                          <p class="text-right"><span><button class="btn btn-primary">Completed</button></span></p>
+                          <% } %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      
+        
+
+      </form>
+
+                              <% }  %> 
+
+ 
+      </div>
+      <div class="col-md-4 offset-md-2 border border-dark rounded">
+        <!-- <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <a href="./add_user.html" class="btn btn-primary my-btn-group">Add User</a>
+        </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <a href="./set_target.html" class="btn btn-success my-btn-group">Set Target</a>
+        </div>
+        </div> -->
+        <div class="row mt-4">
+          <div class="col-md-12 text-center">
+            <div class="accordion" id="group_info">
+              <div class="card">
+                <div class="card-header" id="add_user_heading">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#add_user"
+                      aria-expanded="false" aria-controls="add_user">
+                      Add User
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="add_user" class="collapse" aria-labelledby="add_user_heading" data-parent="#group_info">
+                  <div class="card-body">
+                   
+                    <form class="needs-validation" validate  action="/inside_group" method="POST" >
+                        <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Name" name="name" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                          placeholder="Enter email" name="email" required>
+                          <input type='hidden' id= 'result' name='result' value= <%= result %> />
+
+                      
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="target_heading">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#target"
+                      aria-expanded="false" aria-controls="target">
+                      Set Target
+                    </button>
+                  </h5>
+                </div>
+                <div id="target" class="collapse" aria-labelledby="target_heading" data-parent="#group_info">
+                  <div class="card-body">
+                    <form class="needs-validation"   action="/inside_group_set_target" method="POST" >
+                      <h6><%= bname %></h6>
+                      <div class="form-group">
+                        <label for="target">Target</label>
+                        <input type="number" class="form-control" id="target" name="target" placeholder="Pageno" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="number">Number of Days</label>
+
+                        <input type="number" class="form-control" id="number" name="number" placeholder="Number of Days" required>
+                        <input type='hidden' id= 'id' name='id' value= <%= result %> />
+
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="users_heading">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#users"
+                      aria-expanded="false" aria-controls="users">
+                      Users
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="users" class="collapse show" aria-labelledby="users_heading" data-parent="#group_info">
+                  <div class="card-body">
+                    <ul class="list-group">
+                      <% for(var i=0; i < userarray.length; i++) { %>
+
+                      <li class="list-group-item" id="user_list_1"><%= userarray[i] %></li>
+                      <% }  %> 
+
+                      
+                     
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+
+</html>

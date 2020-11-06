@@ -19,6 +19,15 @@ const UserSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    requests:[{
+      type:String
+
+    }],
+    completedbooks:[{
+      type:String
+
+    }],
+
     groups: [{
       type: String
   }],

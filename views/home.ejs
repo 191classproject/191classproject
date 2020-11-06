@@ -62,8 +62,8 @@
                   <img src="data:image/<%=image.img.contentType%>;base64, 
                    <%=image.img.data.toString('base64')%>" class="rounded" width="70" height="70">
                    <ul class="list-unstyled mt-3 mb-4">
-                      <li class="text-secondary"><%= image.count %> members & still counting</li>
-                      <p><%=  image.desc %></p>
+                    <li class="text-secondary"><%= image.users.length %> members & still counting</li>
+                    <p><%=  image.desc %></p>
                     </ul>
                     <form action="/home" method="POST">
                       <input type='hidden' id= 'id' name='id' value= <%= image._id %> />

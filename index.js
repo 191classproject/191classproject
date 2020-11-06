@@ -1,7 +1,6 @@
 const express=require("express");
 const fs = require('fs')
 var path = require('path'); 
-var JSAlert = require("js-alert");
  
 const swal = require('sweetalert');
 
@@ -11,13 +10,13 @@ const mongoose = require("mongoose");
 const User=require('./models/User');
 const Groups=require('./models/groups');
 
+
 const session = require('express-session') 
 
 
 const bodyParser = require("body-parser");
 const queryString=require('query-string')
 const axios=require('axios')
-const window=require('window');
 const { count } = require("./models/User");
 const connectionParams={
   useNewUrlParser: true,
@@ -26,6 +25,7 @@ const connectionParams={
 }
 mongoose.connect("mongodb+srv://191classproject:12345@cluster0.pxhyp.mongodb.net/Books?retryWrites=true&w=majority",connectionParams);
 var multer = require('multer'); 
+const { Console } = require("console");
   
 var storage = multer.diskStorage({ 
     destination: (req, file, cb) => { 
@@ -105,20 +105,170 @@ app.get('/home', (req, res) =>{
 
 
     });
+
 app.post('/home', (req, res) =>{
   var img= req.body.id;
+
+  Groups.findOne(
+    { _id:img},
+    function(error,foundresult){
+      if(error)
+      {
+        res.send(error)
+      }
+      else{
+
+       
+
+if(foundresult.users.includes(req.session.email))
+{
+
+
   User.updateOne(
     { email:     req.session.email },
     {$push: { groups: [img] } },
+    {$push:{completedbooks:[]}},
     function(err, result) {
       if (err) {
         res.send(err);
       } else {
-        res.send(result);
+        Groups.findOne({_id:img}, function(err, dba) {
+
+          if (err)
+          {
+console.log("NULL")
+          }
+          else
+          {
+            if(dba.users.includes(req.session.email))
+            {
+
+            }
+            else
+            {
+              Groups.updateOne(
+                { _id:img },
+                {$push: { users: [req.session.email] } },
+                
+              );
+
+            }
+             
+            Groups.findOne(
+              { _id:img},
+              function(error,foundresult){
+                if(error)
+                {
+                  res.send(error)
+                }
+                else{
+
+                  res.render('inside_group',{alert:"successalert",currentemail:req.session.email,targetarray:foundresult.targetinfo,userarray:foundresult.users,gname:dba.gname,bname:dba.bname,ctype:dba.img.contentType,imgsrc:dba.img.data,result:img});
+
+
+                }
+              }
+            );   
+            
+          }
+
+
+        });
+
+
       }
     }
   );
+  
+
+
+}
+else if(Number(foundresult.max)>=foundresult.users.length){
+
+  User.updateOne(
+    { email:     req.session.email },
+    {$push: { groups: [img] } },
+    {$push: { completedbooks : []  }},
+
+    function(err, result) {
+      if (err) {
+        res.send(err);
+      } else {
+        Groups.findOne({_id:img}, function(err, dba) {
+
+          if (err)
+          {
+console.log("NULL")
+          }
+          else
+          {
+            if(dba.users.includes(req.session.email))
+            {
+
+            }
+            else
+            {
+
+              Groups.updateOne(
+                { _id:img },
+                {$push: { users: [req.session.email] } },
+                function(err, result) {
+                  if (err) {
+                    console.log(err)
+                  } 
+                  
+                }
+              );
+
+            }
+             
+            Groups.findOne(
+              { _id:img},
+              function(error,foundresult){
+                if(error)
+                {
+                  console.log(error)
+                }
+                else{
+
+
+                  res.render('inside_group',{alert:"successalert",currentemail:req.session.email,targetarray:foundresult.targetinfo,userarray:foundresult.users,gname:dba.gname,bname:dba.bname,ctype:dba.img.contentType,imgsrc:dba.img.data,result:img});
+
+
+                }
+              }
+            );   
+            
+          }
+
+
+        });
+
+
+      }
+    }
+  );
+
+}
+else{
+  res.send("fuck")
+}
+    }
+  
+    
+  }
+); 
+
+
+
+
+
+
       });
+
+      
+    
+      
       
     
   async function getAccessTokenFromCode(code,res,req) {
@@ -405,14 +555,13 @@ app.get('/create_group', (req, res) =>{
   });
 
 app.post('/create_group', upload.single('image'), (req, res, next) => { 
-    console.log(req.session.email);
     var obj = { 
         gname: req.body.gname,
         bname:req.body.bname, 
-        maxiumnum:req.body.maximnum,
+        max:req.body.maximumnum,
         desc:req.body.dis,
         createdby:req.session.email,
-        count:0,
+        pagenos:req.body.pagenos,
         img: { 
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), 
             contentType: 'image/png'
@@ -483,7 +632,6 @@ app.get('/view_p_create', (req, res) =>{
 });
 
 app.get('/profile', (req, res) =>{
-  console.log(req.session.name)
   res.render('profile',{ name:req.session.name,email:req.session.email });
   });
 
@@ -656,7 +804,6 @@ else
             if(foundResults.password==change)
             {
               req.session.name=username;
-              console.log(req.session.name);
 
               User.updateOne(
                 { email:     req.session.email },
@@ -686,15 +833,525 @@ else
   
   }
   
-  
-  
+
+
   
   
   
       }});
-    
-  
 
+
+
+
+
+
+
+
+
+
+      app.post('/inside_group', (req, res) =>{
+
+        name=req.body.name;
+        email=req.body.email;
+        resultx=req.body.result;
+        var alertvalue=0;
+
+        User.findOne({email:email},
+
+
+          (err,foundResults)=>{
+      
+              if(err){
+
+
+}
+
+if (foundResults)
+
+              
+              {
+
+               
+                
+                User.updateOne(
+                  { 
+                    email:    email },
+                  {$push: { requests : resultx } },
+                  function(err, result) {
+                    if (err) {
+
+
+                    } 
+                    else {
+                      alertvalue=0;
+
+
+                  }
+                  }
+                );
+
+                
+      
+          }
+          else{
+            alertvalue=1;
+
+
+          }
+
+          }) ; 
+                                
+          Groups.findOne(
+            { _id:req.body.result},
+            function(error,foundresult){
+              if(error)
+              {
+                res.send(error)
+              }
+              else{
+
+
+                if(alertvalue==0)
+                {
+                  res.render('inside_group',{alert:"successalert",msg:"Request Send Succesfullly",targetarray:foundresult.targetinfo,userarray:foundresult.users,gname:foundresult.gname,bname:foundresult.bname,ctype:foundresult.img.contentType,imgsrc:foundresult.img.data,result:req.body.id});
+
+                }
+                if(alertvalue==1)
+                {
+
+                  res.render('inside_group',{alert:"successalert",msg:"NO user found",targetarray:foundresult.targetinfo,userarray:foundresult.users,gname:foundresult.gname,bname:foundresult.bname,ctype:foundresult.img.contentType,imgsrc:foundresult.img.data,result:req.body.id});
+
+
+                }
+
+
+
+              }
+            }
+          );     
+       
+
+    
+    
+      });
+
+
+
+
+      app.get('/Requests', (req, res) =>{
+
+        console.log(
+          "hie"
+        );
+        User.findOne({email:req.session.email},
+          (err,foundResults)=>{
+  
+              if(err){
+                  console.log(err);
+              }
+              else
+              {
+                
+                Groups.find({}, (err, items) => { 
+                  if (err) { 
+                      console.log(err); 
+                  } 
+                  else { 
+                    
+                    res.render("Requests",{items:items,reqarray:foundResults.requests,email:req.session.email})
+              
+                  } 
+              });   
+  
+          }
+          }) ;
+
+        
+        
+              });
+            
+
+
+app.post('/accept', (req, res) =>{
+  email=req.body.email;
+  groupid=req.body.groupid;
+  console.log("hie");
+
+  User.findOne({email:email},
+    (err,foundResults)=>{
+      if(foundResults.users.includes(email)==true)
+      {
+        console.log("True");
+      }
+      else{
+        User.updateOne(
+
+
+          { email:     req.session.email },
+          {$push: { groups: [groupid]} },
+          function(err, result) {
+            if (err) {
+              res.send(err);
+            } 
+          }
+        );
+        User.updateOne( {email:email}, { $pullAll: {requests: [groupid] } },
+          (err,results)=>
+          {
+            if(err)
+            {
+              console.log(err);
+            }
+          }
+           );
+        
+      }
+
+    }
+  );
+  User.findOne({email:req.session.email},
+    (err,foundResults)=>{
+
+        if(err){
+            console.log(err);
+        }
+        else
+        {
+          Groups.findOne({_id:groupid}, function(err, dba) {
+
+            if (dba.groups.includes(groupid))
+            {
+            }
+            else
+            {
+            
+          Groups.updateOne(
+            {_id:groupid},
+            {$push:{users:email},},
+            (err,result)=>
+            {if(err)
+             {
+               console.log(err);
+
+               
+             }
+             else{
+               console.log("Succes")
+             }
+
+            }
+
+          );
+            }});
+          
+          Groups.find({}, (err, items) => { 
+            if (err) { 
+                console.log(err); 
+            } 
+            else { 
+              res.render("Requests",{items:items,reqarray:foundResults.requests,email:req.session.email,ctype:items.img.contentType,imgsrc:items.img.data})
+        
+            } 
+        });   
+
+    }
+    }) ;
+
+              
+
+
+
+              }); 
+
+
+              app.post('/reject', (req, res) =>{
+                email=req.body.email;
+                groupid=req.body.groupid;
+
+                console.log("reject");
+                User.updateOne( {email:email}, { $pullAll: {requests: [groupid] } },
+                  (err,results)=>
+                  {
+                    if(err)
+                    {
+                      console.log(err);
+                    }
+                  }
+                   );
+                   
+                   User.findOne({email:req.session.email},
+                    (err,foundResults)=>{
+            
+                        if(err){
+                            console.log(err);
+                        }
+                        else
+                        {
+                          
+                          Groups.find({}, (err, items) => { 
+                            if (err) { 
+                                console.log(err); 
+                            } 
+                            else { 
+                              res.render("Requests",{items:items,reqarray:foundResults.requests,email:req.session.email,ctype:items.img.contentType,imgsrc:items.img.data})
+                        
+                            } 
+                        });   
+            
+                    }
+                    }) ;
+
+
+
+              });  
+  
+  app.post('/inside_group_set_target', (req, res) =>{
+
+    Groups.updateOne(
+      {_id:req.body.id},
+      {$push:{targetinfo:{
+
+        Pagedata:req.body.target,
+        days:req.body.number,
+        createdby:req.session.email,
+        validatedata:"Submitted"
+
+      }}},
+      (err,result)=>
+      {
+        if(err)
+        {
+console.log("error")
+        }
+        else
+        {
+          Groups.findOne(
+            { _id:req.body.id},
+            function(error,foundresult){
+              if(error)
+              {
+                res.send(err)
+              }
+              else{
+
+                res.render('inside_group',{alert:"successalert",targetarray:foundresult.targetinfo,userarray:foundresult.users,gname:foundresult.gname,bname:foundresult.bname,ctype:foundresult.img.contentType,imgsrc:foundresult.img.data,result:req.body.id});
+
+
+              }
+            }
+          );   
+          
+        }
+
+      }
+
+    
+    );
+   
+              
+              }); 
+   app.post('/targetform', (req, res) =>{
+
+
+
+
+    Groups.findOne(
+      { _id:req.body.id},
+      function(error,foundresult){
+        if(error)
+        {
+
+        }
+        else
+        {
+          
+      
+          for(i=0;i<foundresult.targetinfo.length;i++)
+
+          {
+           var  Pagedata=foundresult.targetinfo[i].Pagedata;
+           var createdby=foundresult.targetinfo[i].createdby;
+
+            
+
+            if(foundresult.targetinfo[i]._id==req.body.objectid)
+
+            {
+
+              if(foundresult.targetinfo[i].validatedata=="Submitted")
+              {
+
+              if(foundresult.targetinfo[i].createdby==req.session.email)
+              {
+
+              
+
+              
+
+
+
+
+                Groups.updateOne(
+                  {
+                    "targetinfo._id":req.body.objectid
+                  },
+                 {
+                   $set:
+                   {
+                    ["targetinfo."+i.toString()+".validatedata"]:"Validated",
+                    ["targetinfo."+i.toString()+".targetdata"]:req.body.targetinfo,
+
+
+
+                   }
+
+                 },
+                 (err,result)=>
+                 {
+                 }
+                );
+       
+              }}
+              else if(foundresult.targetinfo[i].validatedata=="Validated")
+              {
+                if(foundresult.targetinfo[i].createdby!=req.session.email)
+                {
+
+              
+                Groups.updateOne(
+                  {
+                    "targetinfo._id":req.body.objectid
+                  },
+                 {
+                   $set:
+                   {
+                    ["targetinfo."+i.toString()+".validatedata"]:"Completed"
+
+                   }
+
+                 },
+                 (err,result)=>
+
+                 {
+                   console.log(Pagedata)
+                  if(Number(Pagedata)>=foundresult.pagenos)
+                  {
+                   if(err)
+                   {
+
+                   }
+                   else
+                   {
+                     User.updateOne(
+                       {email:createdby},
+                       {$push: { completedbooks: [foundresult.bname] } },
+
+
+                       function(error,foundresult){
+                         if(error)
+                         {
+
+                         }
+                         else
+                         {
+console.log("done")
+                         }
+
+                       }
+
+                        );
+
+
+
+                      }
+
+
+                   }
+                 }
+                );
+       
+              }
+            }
+            }
+          
+
+          }
+        }
+      }
+      
+
+
+      );
+      Groups.find({}, (err, items) => { 
+        if (err) { 
+            console.log(err); 
+        } 
+        else { 
+          User.findOne({email:req.session.email},
+            (err,foundResults)=>{
+    
+                if(err){
+                    console.log(err);
+                }
+                else
+                {
+                  console.log(foundResults)
+    
+                  res.render('home', { items: items,name:req.session.name,mygroups:foundResults.groups,email:req.session.email}); 
+    
+            }
+            }) ; 
+        } 
+    }); 
+              }); 
+
+  app.get('/achiev', (req, res) =>{
+
+    User.findOne(
+      {email:req.session.email},
+      (err,result)=>
+      {
+        if(err)
+        {
+
+        }
+
+        else
+        {
+
+
+
+    Groups.find(
+      { bname: result.completedbooks[result.completedbooks.length-1] }, 
+      (err, items) => { 
+      if (err) { 
+          console.log(err); 
+      } 
+      else { 
+
+
+        res.render("achiev",{targetarray:items})
+
+      } 
+ 
+    });  
+
+
+}
+},
+
+);
+
+
+
+
+
+
+
+
+
+
+              }); 
 
 
 

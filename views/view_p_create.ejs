@@ -36,19 +36,22 @@
   <%- include('partials/nav.ejs') %>
 
 
-<h1 class="card-title" style="padding-left: 500px;" ><i>Groups Created By You</i> <small class="text-muted"></small></h1>
 
 
-<div class="container" style="padding-top: 80px;">
-
-    <div class="card-deck mb-3 text-center">
       <% var c = 0 %>
         <% items.forEach(function(image) { %>
 
             <%  if ( image.createdby == email ) { %>  
+              <h1 class="card-title text-center"  ><i>Groups Created By You</i> <small class="text-muted"></small></h1>
+              <div class="container" style="padding-top: 80px;">
+
+
+              <div class="card-deck mb-3 text-center">
+
          
     <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
+
   
                 <div class="card-body" >
                     <h1 class="card-title"><i><%= image.gname %></i> <small class="text-muted"></small></h1>
@@ -57,29 +60,50 @@
                     <img src="data:image/<%=image.img.contentType%>;base64, 
                      <%=image.img.data.toString('base64')%>" class="rounded" width="70" height="70">
                      <ul class="list-unstyled mt-3 mb-4">
-                        <li class="text-secondary"><%= image.count %> members & still counting</li>
+                        <li class="text-secondary"><%= image.users.length %> members & still counting</li>
                         <p><%=  image.desc %></p>
                       </ul>
-                      <button type="button" class="btn btn-lg btn-block btn-outline-warning">View</button>
+                      <form action="/home" method="POST">
+                        <input type='hidden' id= 'id' name='id' value= <%= image._id %> />
   
+  
+                        <button  class="btn btn-lg btn-block btn-outline-warning">View</button>
+  
+  
+  
+  
+                      </form>
+    
                 
             </div> 
         </div> 
         </div>
-        <% }  %> 
+        <% } 
+        else { %>
 
+
+          
+
+
+
+
+   <%}%>
   
         <% }) %> 
     </div> 
     </div>
 
 
+
+
+
+
         <% if(mygroups.length ==0 ){ %>
-          <h1 class="card-title" style="padding-left: 500px;" ><i>PLease join Groups to view this</i> <small class="text-muted"></small></h1>
+          <h1 class="card-title text-center" ><i>PLease join Groups to view this</i> <small class="text-muted"></small></h1>
 
           <% } else { %>
             
-  <h1 class="card-title" style="padding-left: 500px;" ><i>Your Groups</i> <small class="text-muted"></small></h1>
+  <h1 class="card-title text-center" ><i>Your Groups</i> <small class="text-muted"></small></h1>
   <div class="container" style="padding-top: 80px;">
 
     <div class="card-deck mb-3 text-center">
@@ -98,10 +122,17 @@
                           <img src="data:image/<%=image.img.contentType%>;base64, 
                            <%=image.img.data.toString('base64')%>" class="rounded" width="70" height="70">
                            <ul class="list-unstyled mt-3 mb-4">
-                              <li class="text-secondary"><%= image.count %> members & still counting</li>
-                              <p><%=  image.desc %></p>
+                            <li class="text-secondary"><%= image.users.length %> members & still counting</li>
+                            <p><%=  image.desc %></p>
                             </ul>
-                            <button type="button" class="btn btn-lg btn-block btn-outline-warning">View</button>
+                            <form action="/home" method="POST">
+                              <input type='hidden' id= 'id' name='id' value= <%= image._id %> />
+                              <button  class="btn btn-lg btn-block btn-outline-warning">View</button>
+
+        
+        
+        
+                            </form>
         
                       
                   </div> 
