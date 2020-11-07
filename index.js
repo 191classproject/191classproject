@@ -975,6 +975,7 @@ app.post('/accept', (req, res) =>{
   email=req.body.email;
   groupid=req.body.groupid;
 
+
   Groups.findOne({_id:groupid},
     (err,foundResults)=>{
 
@@ -983,33 +984,37 @@ app.post('/accept', (req, res) =>{
 
         if (foundResults.users.includes(req.session.email)==true)
       {
-        console.log("accept clicked")
+        console.log("accept clicked");
 
-      }
-    
-      else{
-        User.updateOne(
-
-
-          { email:     req.session.email },
-          {$push: { groups: [groupid]} },
-          function(err, result) {
-            if (err) {
-              res.send(err);
-            } 
-          }
-        );
-        User.updateOne( {email:req.session.email}, { $pullAll: {requests: [groupid] } },
+         User.updateOne( {email:req.session.email}, { $pullAll: {requests: [groupid] } },
           (err,results)=>
           {
             if(err)
             {
               console.log(err);
             }
+            else{
+            }
+          }
+           );
+
+      }
+    
+      else{
+        
+        User.updateOne( {email:req.session.email}, { $pullAll: {requests: [groupid] } },
+          (err,results)=>
+          {
+
+            if(err)
+            {
+              console.log(err);
+            }
+            else{
+            }
           }
            );
         
-           console.log("hie")
       }
 
     }
@@ -1026,13 +1031,49 @@ app.post('/accept', (req, res) =>{
 
             if (dba.groups.includes(groupid))
             {
+
+              Groups.find({}, (err, items) => { 
+                if (err) { 
+                    console.log(err); 
+                } 
+                else { 
+                  User.findOne({email:req.session.email},
+                    (err,foundResults)=>{
+            
+                        if(err){
+                            console.log(err);
+                        }
+                        else
+                        {
+
+            
+                          res.render('home', { items: items,name:req.session.name,mygroups:dba.groups,email:req.session.email}); 
+            
+                    }
+                    }) ; 
+                } 
+            }); 
+
             }
             else
             {
-            console.log("found")
+              console.log("notfound")
+
+
+              User.updateOne(
+
+
+                { email:     req.session.email },
+                {$push: { groups: [groupid]} },
+                function(err, result) {
+                  if (err) {
+                    res.send(err);
+                  } 
+                }
+              );
           Groups.updateOne(
             {_id:groupid},
-            {$push:{users:email},},
+            {$push:{users:req.session.email},},
             (err,result)=>
             {if(err)
              {
@@ -1057,7 +1098,6 @@ app.post('/accept', (req, res) =>{
                         else
                         {
 
-                          console.log("true")
             
                           res.render('home', { items: items,name:req.session.name,mygroups:dba.groups,email:req.session.email}); 
             
