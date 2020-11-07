@@ -251,8 +251,28 @@ console.log("NULL")
 
 }
 else{
-  res.send("fuck")
-}
+
+  Groups.find({}, (err, items) => { 
+    if (err) { 
+        console.log(err); 
+    } 
+    else { 
+      User.findOne({email:req.session.email},
+        (err,foundResults)=>{
+
+            if(err){
+                console.log(err);
+            }
+            else
+            {
+
+
+              res.render('home', { items: items,name:req.session.name,mygroups:dba.groups,email:req.session.email}); 
+
+        }
+        }) ; 
+    } 
+}); }
     }
   
     
