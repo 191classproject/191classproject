@@ -60,7 +60,7 @@ app.use(session({
 
 const stringifiedParams = queryString.stringify({
   client_id: "82196192223-m9ceu30331dm4uetb1a1luhugmjpmop7.apps.googleusercontent.com",
-  redirect_uri: 'http://ec2-13-127-209-208.ap-south-1.compute.amazonaws.com:4000/home',
+  redirect_uri: 'http://http://ec2-3-81-134-58.compute-1.amazonaws.com:4000/home',
   scope: [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
@@ -303,7 +303,7 @@ else{
           data: {
             client_id:"82196192223-m9ceu30331dm4uetb1a1luhugmjpmop7.apps.googleusercontent.com",
             client_secret: "u-5hXIZaDL0lWcR0_G9y9dSU",
-            redirect_uri: 'http://ec2-13-127-209-208.ap-south-1.compute.amazonaws.com:4000/home',
+            redirect_uri: 'http://http://ec2-3-81-134-58.compute-1.amazonaws.com:4000//home',
             grant_type: 'authorization_code',
             code:code,
           },
