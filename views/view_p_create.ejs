@@ -35,6 +35,12 @@
 <body>
   <%- include('partials/nav.ejs') %>
 
+  <h1 class="card-title text-center"  ><i>Groups Created By You</i> <small class="text-muted"></small></h1>
+
+  <div class="container" style="padding-top: 80px;">
+
+
+    <div class="card-deck mb-3 ">
 
 
 
@@ -42,23 +48,20 @@
         <% items.forEach(function(image) { %>
 
             <%  if ( image.createdby == email ) { %>  
-              <h1 class="card-title text-center"  ><i>Groups Created By You</i> <small class="text-muted"></small></h1>
-              <div class="container" style="padding-top: 80px;">
+              <div class="col-md-4">
 
 
-              <div class="card-deck mb-3 text-center">
-
-         
-    <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
 
   
                 <div class="card-body" >
                     <h1 class="card-title"><i><%= image.gname %></i> <small class="text-muted"></small></h1>
+                    <h4 class="card-title"><i><%= image.bname %></i> <small class="text-muted"></small></h4>
+
 
           
                     <img src="data:image/<%=image.img.contentType%>;base64, 
-                     <%=image.img.data.toString('base64')%>" class="rounded" width="70" height="70">
+                     <%=image.img.data.toString('base64')%>" class="rounded" width="85" height="85">
                      <ul class="list-unstyled mt-3 mb-4">
                         <li class="text-secondary"><%= image.users.length %> members & still counting</li>
                         <p><%=  image.desc %></p>
