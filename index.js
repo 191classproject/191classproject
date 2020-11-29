@@ -60,7 +60,7 @@ app.use(session({
 
 const stringifiedParams = queryString.stringify({
   client_id: "82196192223-m9ceu30331dm4uetb1a1luhugmjpmop7.apps.googleusercontent.com",
-  redirect_uri: 'http://ec2-13-127-209-208.ap-south-1.compute.amazonaws.com:4000/home c',
+  redirect_uri: 'http://ec2-13-127-209-208.ap-south-1.compute.amazonaws.com:4000/home',
   scope: [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
