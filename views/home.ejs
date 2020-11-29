@@ -57,11 +57,14 @@
 
               <div class="card-body">
 
-                  <h1 class="card-title"><i><%= image.name %></i> <small class="text-muted"></small></h1>
-        
-                  <img src="data:image/<%=image.img.contentType%>;base64, 
-                   <%=image.img.data.toString('base64')%>" class="rounded" width="70" height="70">
-                   <ul class="list-unstyled mt-3 mb-4">
+                <h1 class="card-title"><i><%= image.gname %></i> <small class="text-muted"></small></h1>
+                <h4 class="card-title"><i><%= image.bname %></i> <small class="text-muted"></small></h4>
+
+
+      
+                <img src="data:image/<%=image.img.contentType%>;base64, 
+                 <%=image.img.data.toString('base64')%>" class="rounded" width="85" height="85">
+                 <ul class="list-unstyled mt-3 mb-4">
                     <li class="text-secondary"><%= image.users.length %> members & still counting</li>
                     <p><%=  image.desc %></p>
                     </ul>
@@ -96,11 +99,14 @@
   
   
                 <div class="card-body">
-  
-                    <h1 class="card-title"><i><%= image.name %></i> <small class="text-muted"></small></h1>
-          
-                    <img src="data:image/<%=image.img.contentType%>;base64, 
-                     <%=image.img.data.toString('base64')%>" class="rounded" width="70" height="70">
+                  <h1 class="card-title"><i><%= image.gname %></i> <small class="text-muted"></small></h1>
+                  <h4 class="card-title"><i><%= image.bname %></i> <small class="text-muted"></small></h4>
+
+
+        
+                  <img src="data:image/<%=image.img.contentType%>;base64, 
+                   <%=image.img.data.toString('base64')%>" class="rounded" width="85" height="85">
+                   <ul class
                      <ul class="list-unstyled mt-3 mb-4">
                         <li class="text-secondary"><%= image.count %> members & still counting</li>
                         <p><%=  image.desc %></p>
